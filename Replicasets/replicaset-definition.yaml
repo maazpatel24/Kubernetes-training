@@ -1,0 +1,28 @@
+# kubectl create -f replicaset-definition.yaml
+# kubectl get replicaset
+# kubectl get pods
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  selector:
+    matchLabels:
+      type: front-end   #    <-----------
+  replicas: 3           #               |
+  template:             #               |
+    metadata:           #               |
+      name: myapp-pod   #               |--- This two labels should match
+      labels:           #               |
+        app: myapp      #               |
+        type: front-end #    <-----------
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+    
+  
